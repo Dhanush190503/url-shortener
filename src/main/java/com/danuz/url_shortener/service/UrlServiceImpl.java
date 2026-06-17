@@ -38,10 +38,12 @@ public class UrlServiceImpl implements UrlService {
 
         repository.save(url);
 
+        String baseUrl = "https://url-shortener-production-db80.up.railway.app";
+
         return new UrlResponse(
                 url.getOriginalUrl(),
                 shortCode,
-                "http://localhost:8081/" + shortCode
+                baseUrl + "/" + shortCode
         );
     }
 
@@ -53,8 +55,7 @@ public class UrlServiceImpl implements UrlService {
                 .orElseThrow(() ->
                         new UrlNotFoundException(shortCode));
 
-        url.setClickCount(
-                url.getClickCount() + 1);
+        url.setClickCount(url.getClickCount() + 1);
 
         repository.save(url);
 
